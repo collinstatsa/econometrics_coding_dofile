@@ -1,12 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////     Université de Montréal          //////////////////////////
-////////////////////////////    Travail pratique ECN 6350       //////////////////////////
-////////////////////////////      Éléments d'Économétrie       ///////////////////////////
-////////////////////////////  Dû le mercredi 24 Novembre 2021  ///////////////////////////
-////////////////////////////        Collins Rostant            ///////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////        Collins Rostant Tatsa            ////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 clear all
 capture log close
 log using "C:\Users\mirei\OneDrive\Bureau\Travail_pratique_UdeM\results_tp.log",replace
@@ -14,7 +9,7 @@ set more off
 use "C:\Users\mirei\OneDrive\Bureau\Travail_pratique_UdeM\crime.dta"
 set memory 20m
 
-//// Exercice 1 La base de données d'un É.A. de 92 villes américaines
+////La base de données d'un É.A. de 92 villes américaines
 
 **(a) Rapportez et discutez brièvement quelques statistiques descriptives
 
@@ -211,30 +206,6 @@ matrix list bzone3_hat
 regress crimes pop officers if zone4==1
 matrix bzone4_hat= e(b)
 matrix list bzone4_hat
-
-**Proposition d'un modèle de régression, équation unique, incluant des interactions
-*Construction des variables d'interaction (2 var ind.*4 var binaires=8 var. d'interaction)
-
-gen int1=zone1*pop
-gen int2=zone1*officers
-gen int3=zone2*pop
-gen int4=zone2*officers
-gen int5=zone3*pop
-gen int6=zone3*officers
-gen int7=zone4*pop
-gen int8=zone4*officers
-
-*Le modèle de régression unique est:
-regress crimes int1 int2 int3 int4 int5 int6 int7 int8
-
-*Coefficients estimés peuvent être obtenus a partir des coefficients estimés pour les 4 équations
-regress crimes int1 int2 int3 int4 int5 int6 int7 int8 zone1 zone2 zone3 zone4,nocons
-
-*Régression de crimes sur toutes les variables avec l'option if
-regress crimes int1 int2 int3 int4 int5 int6 int7 int8 zone1 zone2 zone3 zone4 if zone1==1
-regress crimes int1 int2 int3 int4 int5 int6 int7 int8 zone1 zone2 zone3 zone4 if zone2==1
-regress crimes int1 int2 int3 int4 int5 int6 int7 int8 zone1 zone2 zone3 zone4 if zone3==1
-regress crimes int1 int2 int3 int4 int5 int6 int7 int8 zone1 zone2 zone3 zone4 if zone4==1
 
 // Exercice 3 Estimation du modèle (4) avec erreurs hétéroscédastiques
 
